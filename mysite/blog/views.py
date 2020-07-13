@@ -6,6 +6,7 @@ from django.utils import timezone
 from .forms import PostForm, CommentForm
 from .models import Post, Comment
 
+
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 
 
@@ -16,8 +17,7 @@ class HomeView(ListView):
     model = Post
 
     def get_queryset(self):
-        return Post.objects.filter(published_date__lte=timezone.now()).order_by(
-            '-published_date')  # ('-pub_date' = DESC)
+        return Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date') # ('-published_date' = DESC)
         # SELECT * FROM Post
         # WHERE published_date <= now
         # ORDER BY published_date DESC
@@ -72,6 +72,7 @@ class DraftListView(LoginRequiredMixin, ListView):
     login_url = '/login/'
     redirect_field_name = 'blog/post_detail.html'
     model = Post
+    template_name = 'blog/post_draft_list.html'
 
     def get_queryset(self):
         return Post.objects.filter(published_date__isnull=True).order_by('created_date')
@@ -84,7 +85,7 @@ def publish_post(request, pk):
     """
     post = get_object_or_404(Post, pk=pk)
     post.publish()
-    return redirect('blog:home', pk=pk)
+    return redirect('blog:home')
 
 
 def add_comment(request, pk):
@@ -106,19 +107,9 @@ def add_comment(request, pk):
 
 
 @login_required
-def approve_comment(request, pk):
-    """
-    Realizes the .approve() metnod of class Comment
-    """
-    comment = get_object_or_404(Comment, pk=pk)
-    comment.approve()
-    return redirect('blog:post_detail', pk=comment.post.pk)
-
-
-@login_required
 def remove_comment(request, pk):
     """
-    Realizes built-in .delete() method of class Comment
+    Realizes built-in method .delete()  of class Comment
     """
     comment = get_object_or_404(Comment, pk=pk)
     post_pk = comment.post.pk

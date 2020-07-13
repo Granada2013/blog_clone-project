@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+{% block head_block %}
+  <title>Drafts</title>
+{% endblock %}
+
+{% block content %}
+<div class="col-lg-8">
+  <h1 class="roboto">My Drafts</h1>
+  <hr>
+    {% for post in post_list %}
+      <div class="post">
+        <h3> <a class="posttitle lora" href="{% url 'blog:post_detail' pk=post.pk %}">
+          {{ post.title }}</a></h3>
+        <p class="postcontent">{{ post.text|linebreaksbr|truncatewords:20 }}</p>
+
+        <div class="postdata d-flex flex-row justify-content-between">
+          <p class="postdata"> Created: {{ post.created_date|date:"D M Y" }}</p>
+          <p class="postdata"> NOT PUBLISHED</p>
+        </div>
+      {% empty %}
+      <p>All your posts are published!</p>
+    {% endfor %}
+</div>
+{% endblock %}

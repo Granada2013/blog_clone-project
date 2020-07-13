@@ -1,12 +1,62 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- Bootstrap -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- Medium Style Editor -->
+    <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500&display=swap" rel="stylesheet">
+
+
+    <!-- Icon Library Font Awesome -->
+    <script src="https://kit.fontawesome.com/3e9e50c803.js" crossorigin="anonymous"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
     {% block head_block %}
     {% endblock %}
 </head>
 <body>
-  {% block body_block %}
-  {% endblock %}
+  <nav class="navbar navbar-expand navbar-dark bg-dark roboto custom-navbar">
+    <div class="container">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="navbar-brand bigbrand" href="{% url 'blog:home' %}">Bloggme</a></li>
+      <!-- </ul>
+      <ul class="navbar-nav navbar-left"> -->
+        <li class="nav-item"><a class="nav-link" href="{% url 'blog:about' %}">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="https://github.com/Granada2013/blog_clone-project">Github</a></li>
+      </ul>
+      <ul class="navbar-nav">
+        {% if user.is_authenticated %}
+          <li class="nav-item"><a class="nav-link nav-welcome">Welcome back {{ user.username }}!</a></li>
+        {% endif %}
+      </ul>
+
+      <ul class="navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+          <li class="nav-item"><a class="btn btn-new-post" href="{% url 'blog:post_new' %}">
+            <span class="fas fa-pencil-alt"></span> Create new post</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'blog:post_draft_list' %}">My Drafts</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Log Out</a></li>
+        {% else %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"> <i class="far fa-user"></i> </a>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+  <div class="container content">
+          {% block content %}
+          {% endblock %}
+  </div>
 </body>
 </html>

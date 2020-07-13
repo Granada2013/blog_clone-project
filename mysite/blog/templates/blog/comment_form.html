@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+{% block head_block %}
+  <title>New comment</title>
+{% endblock %}
+
+{% block content %}
+<div class="col-lg-8">
+  <h2 class="roboto">New comment</h2>
+  {% if form.errors %}
+    <ul>
+      <li> <small>The name is too long. Must be up to 15 characters.</small></li>
+    </ul>
+  {% endif %}
+  <form class="post-form" method="post">
+    {% csrf_token %}
+
+    <p class="form-field">{{ form.author }}</p>
+    <p class="form-field">{{ form.text }}</p>
+
+    <input type="submit" class="btn btn-primary" value="Send comment">
+  </form>
+</div>
+  <!-- <script>var editor = new MediumEditor('.editable');</script> -->
+{% endblock %}

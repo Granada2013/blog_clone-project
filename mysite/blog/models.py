@@ -9,17 +9,17 @@ from django.urls import reverse
 
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_NULL,
-                               null=True)  # since it's a single-user blog (the authorized user is an author)
+                               null=True)  # since an authorized user is an author
     title = models.CharField(max_length=256)
     text = models.TextField()
-    created_date = models.DateTimeField(default=timezone.now())
+    created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
 
     def publish(self):
         """
         Sets the published_date and saves the post in the database.
         """
-        self.pudlished_date = timezone.now()
+        self.published_date = timezone.now()
         self.save()
 
     def approve_comment(self):
@@ -42,15 +42,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
     author = models.CharField(max_length=256)
     text = models.TextField()
-    create_date = models.DateTimeField(default=timezone.now())
-    approved = models.BooleanField(default=False)
-
-    def approve(self):
-        """
-        Sets the "approved" attribute of the comment to "True" and saves the comment in the datadase.
-        """
-        self.approved = True
-        self.save()
+    created_date = models.DateTimeField(default=timezone.now)
 
     def get_absolute_url(self):
         """

@@ -1,0 +1,41 @@
+{% extends 'blog/base.html' %}
+{% block head_block %}
+
+  {% if not post.instance.pk %}
+    <title>New post</title>
+  {% else %}
+    <title>Edit post</title>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="col-lg-8">
+  {% if not form.instance.pk %}
+    <h1 class="roboto">New Post</h1>
+  {% else %}
+    <h1 class="roboto">Edit post</h1>
+  {% endif %}
+
+  <form class="post-form" method="post">
+    {% csrf_token %}
+    <table>
+      <tr>
+        <td class="form-label">{{ form.author.label_tag }}</td>
+        <td class="form-field">{{ form.author }}</td>
+      </tr>
+      <tr>
+        <td class="form-label">{{ form.title.label_tag }}</td>
+        <td class="form-field">{{ form.title }}</td>
+      </tr>
+      <tr>
+        <td class="form-field" colspan="2">{{ form.text }}</td>
+      </tr>
+    </table>
+    {% if form.instance.pk %}
+    <a class="btn btn-info active" href="{% url 'blog:publish_post' pk=post.pk %}">Publish</a>
+    {% endif %}
+    <input type="submit" class="btn btn-outline-secondary" value="Save as draft">
+  </form>
+</div>
+  <!-- <script>var editor = new MediumEditor('.editable');</script> -->
+{% endblock %}
