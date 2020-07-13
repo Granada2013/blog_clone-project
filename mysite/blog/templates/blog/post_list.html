@@ -13,7 +13,7 @@
     <h3> <a  class="posttitle lora" href="{% url 'blog:post_detail' pk=post.pk %}">{{ post.title }}</a></h3>
     <p class="postcontent">{{ post.text|linebreaksbr|truncatewords:25 }}</p>
     <div class="postdata d-flex flex-row justify-content-between">
-      <p> <span class="fas fa-calendar-alt"></span> {{ post.published_date|date:"D M Y" }}</p>
+      <p> <span class="fas fa-calendar-alt"></span> {{ post.published_date|date:'b j, Y'}}</p>
       <p> <span class="fas fa-comment"></span> {{ post.comments.count }}</p>
     </div>
   </div>

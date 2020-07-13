@@ -31,10 +31,22 @@
         <td class="form-field" colspan="2">{{ form.text }}</td>
       </tr>
     </table>
-    {% if form.instance.pk %}
-    <a class="btn btn-info active" href="{% url 'blog:publish_post' pk=post.pk %}">Publish</a>
+
+    {% if not form.instance.pk %}
+      <button type="submit" class="btn btn-info active"
+        formaction="{% url 'blog:post_new' %}">
+        <span class="far fa-paper-plane icon"></span>Publish</button>
+
+      <button type="submit" class="btn btn-outline-secondary"
+        formaction="{% url 'blog:save_new_as_draft' %}">
+        Save as draft</button>
+
+    {% else %}
+      <button type="submit" class="btn btn-primary"
+        formaction="{% url 'blog:post_edit' pk=form.instance.pk %}">
+        Save</button>
     {% endif %}
-    <input type="submit" class="btn btn-outline-secondary" value="Save as draft">
+    
   </form>
 </div>
   <!-- <script>var editor = new MediumEditor('.editable');</script> -->

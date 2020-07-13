@@ -70,7 +70,7 @@ body{
 }
 
 .nav-welcome{
-  color: rgba(255,255,255,0.8) !important;
+  color: rgba(255,255,255,0.8);
 }
 
 .nav-item{
@@ -88,10 +88,13 @@ body{
   height: 85vh;
 
 }
-.aboutme{
+.aboutme-wrap{
   margin-top: 10%;
-  background-color: rgba(255,255,255,0.3)
+  background-color: rgba(255,255,255,0.5)
+}
 
+.aboutme-text{
+  padding: 3% 3% 3% 3%
 }
 
 

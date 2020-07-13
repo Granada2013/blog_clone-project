@@ -13,7 +13,14 @@ class Post(models.Model):
     title = models.CharField(max_length=256)
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
-    published_date = models.DateTimeField(blank=True, null=True)
+    published_date = models.DateTimeField(default=timezone.now, blank=True, null=True)
+
+    def save_as_draft(self):
+        """
+        Sets published_date to None and saves post as draft
+        """
+        self.published_date = None
+        self.save()
 
     def publish(self):
         """
@@ -22,17 +29,11 @@ class Post(models.Model):
         self.published_date = timezone.now()
         self.save()
 
-    def approve_comment(self):
-        """
-        Returns the list of approved comments to the current post.
-        """
-        return self.comments.filter(approved=True)
-
     def get_absolute_url(self):
         """
         Built-in django method indicates where to redirect a user after he creates a post.
         """
-        return reverse('blog:post_detail', kwargs={'pk': self.pk})
+        return reverse('blog:home')
 
     def __str__(self):
         return self.title
