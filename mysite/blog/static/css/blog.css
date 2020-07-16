@@ -65,14 +65,6 @@ body{
   color: #fcdd0f !important;
 }
 
-.navbar-nav{
-  align-items: baseline;
-}
-
-.nav-welcome{
-  color: rgba(255,255,255,0.8);
-}
-
 .nav-item{
   margin-right: 10px;
   font-size: 1.1em;
@@ -84,19 +76,25 @@ body{
 
 /* ABOUT PAGE */
 
+.pic-wrap{
+  overflow: hidden;
+}
+
+
 .myphoto{
+  display: block;
+  margin: auto;
   height: 85vh;
 
 }
 .aboutme-wrap{
-  margin-top: 10%;
-  background-color: rgba(255,255,255,0.5)
+  background-color: rgba(255,255,255,0.6);
 }
 
 .aboutme-text{
-  padding: 3% 3% 3% 3%
+  padding: 3% 3% 3% 3%;
+  width: 100%;
 }
-
 
 /* LOGIN PAGE */
 
