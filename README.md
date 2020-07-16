@@ -1,2 +1,2 @@
 # blog_clone-project
-The clone of a blog-site made on Django.
+A simple text-blog for a single user made on Django.
